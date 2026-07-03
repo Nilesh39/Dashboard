@@ -1,0 +1,26 @@
+# Python local files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.env
+instagram_analytics.db
+backend/instagram_analytics.db
+
+# Node.js / React local builds
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.eslintcache
+*.log
+.DS_Store
+
+# IDE / System files
+.vscode/
+.idea/
+.system_generated/
+.gemini/
