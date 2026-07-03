@@ -17,9 +17,9 @@ export default function FloatingSaveBar() {
   if (!hasChanges) return null;
 
   return (
-    <div className="fixed bottom-6 left-64 right-0 px-8 z-50 flex justify-center pointer-events-none">
-      <div className="bg-zinc-950/95 border border-instagram-primary/30 backdrop-blur-xl px-6 py-4 rounded-2xl flex items-center justify-between gap-8 shadow-2xl pointer-events-auto max-w-2xl w-full animate-float">
-        <div className="flex flex-col">
+    <div className="fixed bottom-6 md:left-64 left-0 right-0 px-4 md:px-8 z-50 flex justify-center pointer-events-none">
+      <div className="bg-zinc-950/95 border border-instagram-primary/30 backdrop-blur-xl px-4 md:px-6 py-3 md:py-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-8 shadow-2xl pointer-events-auto max-w-2xl w-full animate-float">
+        <div className="flex flex-col text-center sm:text-left">
           <span className="text-sm font-semibold text-white">Unsaved edits detected</span>
           <span className="text-xs text-zinc-500">Save changes to commit them permanently.</span>
         </div>

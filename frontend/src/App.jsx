@@ -13,16 +13,39 @@ import ProfileStats from './pages/ProfileStats';
 import Automation from './pages/Automation';
 import SettingsPage from './pages/Settings';
 
+import { Menu } from 'lucide-react';
+
 function DashboardContent() {
   const { loading, error } = useEdit();
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
   return (
     <div className="flex min-h-screen bg-instagram-bg text-instagram-text font-custom transition-all">
       {/* Sidebar Navigation */}
-      <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+
+      {/* Mobile Header Bar */}
+      <header className="md:hidden flex items-center justify-between px-6 py-4 bg-black border-b border-zinc-900 fixed top-0 left-0 right-0 z-30 select-none">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 rounded-lg bg-gradient-to-tr from-instagram-purple via-instagram-primary to-instagram-accent text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+            </svg>
+          </div>
+          <span className="text-xs font-bold tracking-wider text-white">INSTATRACK</span>
+        </div>
+        <button 
+          onClick={() => setIsSidebarOpen(true)}
+          className="p-1.5 rounded-lg bg-zinc-900 border border-zinc-850 text-zinc-400 hover:text-white cursor-pointer"
+        >
+          <Menu size={16} />
+        </button>
+      </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 pl-64 min-h-screen relative pb-28">
+      <main className="flex-1 md:pl-64 pl-0 pt-16 md:pt-0 min-h-screen relative pb-28">
         
         {/* Loading Overlay */}
         {loading && (
