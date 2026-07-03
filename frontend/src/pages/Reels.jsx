@@ -108,63 +108,56 @@ export default function Reels() {
       </div>
 
       {/* Reels Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-3 gap-1 md:gap-6 mb-8">
         {reels.map((reel) => (
-          <div key={reel.id} className={`group relative rounded-2xl overflow-hidden ${getCardClass()} border border-zinc-800`}>
-            {/* Visual Cover Placeholder with title overlay */}
-            <div className="h-44 bg-zinc-900 flex flex-col justify-between p-4 relative overflow-hidden">
-              {/* Dynamic Gradient color background representing cover art */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-instagram-blue/30 via-instagram-purple/20 to-instagram-primary/40 opacity-70 group-hover:scale-105 transition-transform duration-500"></div>
-              
-              <div className="z-10 flex justify-between">
-                <span className="text-[10px] bg-black/60 px-2 py-0.5 rounded-full text-zinc-300 font-semibold tracking-wider flex items-center gap-1 border border-zinc-700/50">
-                  <Film size={10} className="text-instagram-primary" />
-                  REEL
-                </span>
-                <span className="text-[10px] bg-instagram-primary/20 border border-instagram-primary/30 px-2.5 py-0.5 rounded-full text-instagram-primary font-bold">
-                  {reel.engagement_rate}% ER
-                </span>
+          <div key={reel.id} className="group relative aspect-[9/16] bg-zinc-950 border border-[#262626] overflow-hidden select-none hover:border-[#363636] transition-all">
+            {/* Visual Cover art background */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 z-0"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-instagram-blue/20 via-instagram-purple/10 to-instagram-primary/20 opacity-60 z-0 group-hover:scale-105 transition-transform duration-500"></div>
+
+            {/* Top Bar: Title & ER (Always Visible) */}
+            <div className="absolute top-2 left-2 right-2 z-10 flex justify-between items-start pointer-events-none">
+              <h3 className="text-white font-bold text-2xs md:text-xs line-clamp-2 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] pr-2">{reel.title}</h3>
+              <span className="text-[8px] md:text-[10px] bg-black/60 border border-[#262626] px-1.5 py-0.5 rounded text-instagram-primary font-bold">
+                {reel.engagement_rate}%
+              </span>
+            </div>
+
+            {/* Bottom Left: Play Icon + Views (Instagram default) */}
+            <div className="absolute bottom-2 left-2 z-10 flex items-center gap-1 text-white font-bold text-2xs md:text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-white">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              <span>{formatMetric(reel.views)}</span>
+            </div>
+
+            {/* Central Hover Overlay (Likes & Comments - Desktop only) */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 md:gap-5 z-10">
+              <div className="flex items-center gap-1 text-white font-bold text-xs md:text-sm">
+                <Heart size={16} fill="currentColor" className="text-white" />
+                <span>{formatMetric(reel.likes)}</span>
               </div>
-              
-              <div className="z-10 mt-auto">
-                <h3 className="text-white font-semibold text-sm line-clamp-2 leading-snug drop-shadow-md">{reel.title}</h3>
-                <span className="text-zinc-400 text-[10px] block mt-1">
-                  {new Date(reel.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                </span>
+              <div className="flex items-center gap-1 text-white font-bold text-xs md:text-sm">
+                <MessageCircle size={16} fill="currentColor" className="text-white" />
+                <span>{formatMetric(reel.comments)}</span>
               </div>
             </div>
 
-            {/* Hover details */}
-            <div className="p-4 grid grid-cols-3 gap-2 text-center border-t border-zinc-900 bg-black/20">
-              <div>
-                <span className="text-[9px] text-zinc-500 uppercase font-semibold block">Views</span>
-                <span className="text-xs font-bold text-white block mt-0.5">{formatMetric(reel.views)}</span>
-              </div>
-              <div>
-                <span className="text-[9px] text-zinc-500 uppercase font-semibold block">Likes</span>
-                <span className="text-xs font-bold text-white block mt-0.5">{formatMetric(reel.likes)}</span>
-              </div>
-              <div>
-                <span className="text-[9px] text-zinc-500 uppercase font-semibold block">Reach</span>
-                <span className="text-xs font-bold text-white block mt-0.5">{formatMetric(reel.reach)}</span>
-              </div>
-            </div>
-
-            {/* Action buttons */}
-            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 z-20">
+            {/* Action buttons (Appear on hover) */}
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 z-25">
               <button
-                onClick={() => handleDuplicate(reel.id)}
+                onClick={(e) => { e.stopPropagation(); handleDuplicate(reel.id); }}
                 title="Duplicate Reel"
-                className="p-1.5 rounded-lg bg-zinc-900/90 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+                className="p-1 rounded bg-black/80 border border-zinc-800 text-zinc-300 hover:text-white transition-colors cursor-pointer"
               >
-                <Copy size={12} />
+                <Copy size={11} />
               </button>
               <button
-                onClick={() => handleDelete(reel.id)}
+                onClick={(e) => { e.stopPropagation(); handleDelete(reel.id); }}
                 title="Delete Reel"
-                className="p-1.5 rounded-lg bg-zinc-900/90 border border-zinc-800 text-rose-400 hover:text-rose-300 hover:bg-zinc-800 transition-colors"
+                className="p-1 rounded bg-black/80 border border-zinc-800 text-rose-400 hover:text-rose-300 transition-colors cursor-pointer"
               >
-                <Trash2 size={12} />
+                <Trash2 size={11} />
               </button>
             </div>
           </div>

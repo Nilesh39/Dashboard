@@ -9,7 +9,9 @@ import {
   Tv, 
   BarChart3,
   Calendar,
-  Sparkles
+  Sparkles,
+  Grid,
+  Bookmark
 } from 'lucide-react';
 import { 
   ResponsiveContainer, 
@@ -98,25 +100,27 @@ export default function Overview() {
     chartData[chartData.length - 1].Engagement = profile.total_engagement;
   }
 
-  return (
-    <div className="p-8">
-      {/* Welcome Bar */}
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-white flex items-center gap-2">
-            Overview Dashboard
-            <Sparkles size={20} className="text-instagram-accent animate-pulse" />
-          </h1>
-          <p className="text-zinc-500 text-sm mt-1">Real-time performance analytics and growth indicators.</p>
-        </div>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs">
-          <Calendar size={14} />
-          {new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-        </div>
-      </div>
 
-      {/* Profile Info Row */}
+  return (
+    <div className="p-4 md:p-8">
+      {/* Profile Info Row at the top */}
       <ProfileHeader />
+
+      {/* Instagram Profile Tabs Row */}
+      <div className="flex justify-center border-t border-[#262626] gap-12 md:gap-16 text-[11px] md:text-xs uppercase tracking-widest text-zinc-400 font-bold mb-8 select-none">
+        <span className="flex items-center gap-1.5 py-4 border-t border-white text-white cursor-pointer">
+          <Grid size={13} />
+          <span>Posts</span>
+        </span>
+        <span className="flex items-center gap-1.5 py-4 cursor-pointer hover:text-white">
+          <Film size={13} />
+          <span>Reels</span>
+        </span>
+        <span className="flex items-center gap-1.5 py-4 cursor-pointer hover:text-white">
+          <Bookmark size={13} />
+          <span>Saved</span>
+        </span>
+      </div>
 
       {/* Metric Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
