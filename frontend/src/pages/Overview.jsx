@@ -11,7 +11,8 @@ import {
   Calendar,
   Sparkles,
   Grid,
-  Bookmark
+  Bookmark,
+  Film
 } from 'lucide-react';
 import { 
   ResponsiveContainer, 
