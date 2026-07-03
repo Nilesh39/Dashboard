@@ -3,7 +3,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./instagram_analytics.db")
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    if os.getenv("VERCEL") or os.getenv("VERCEL_ENV"):
+        DATABASE_URL = "sqlite:////tmp/instagram_analytics.db"
+    else:
+        DATABASE_URL = "sqlite:///./instagram_analytics.db"
 
 # For SQLite, we specify connect_args={"check_same_thread": False}
 connect_args = {}

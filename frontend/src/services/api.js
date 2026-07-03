@@ -1,7 +1,15 @@
 import axios from 'axios';
 
-const backendHost = window.location.hostname || 'localhost';
-const API_BASE_URL = import.meta.env.VITE_API_URL || `http://${backendHost}:8000/api`;
+let API_BASE_URL = import.meta.env.VITE_API_URL;
+if (!API_BASE_URL) {
+  const isVercel = window.location.hostname.includes('vercel.app') || window.location.port === '';
+  if (isVercel) {
+    API_BASE_URL = '/api';
+  } else {
+    const backendHost = window.location.hostname || 'localhost';
+    API_BASE_URL = `http://${backendHost}:8000/api`;
+  }
+}
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,

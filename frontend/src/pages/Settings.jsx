@@ -112,11 +112,15 @@ export default function SettingsPage() {
 
   // Helpers to prevent circular imports or import failures
   const reelsApi_getReels_helper = async () => {
-    const res = await fetch('http://localhost:8000/api/reels/').then(r => r.json());
+    const isVercel = window.location.hostname.includes('vercel.app') || window.location.port === '';
+    const base = isVercel ? '/api' : `http://${window.location.hostname || 'localhost'}:8000/api`;
+    const res = await fetch(`${base}/reels/`).then(r => r.json());
     return res;
   };
   const audienceApi_getAudience_helper = async () => {
-    const res = await fetch('http://localhost:8000/api/audience/').then(r => r.json());
+    const isVercel = window.location.hostname.includes('vercel.app') || window.location.port === '';
+    const base = isVercel ? '/api' : `http://${window.location.hostname || 'localhost'}:8000/api`;
+    const res = await fetch(`${base}/audience/`).then(r => r.json());
     return res;
   };
 
